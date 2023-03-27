@@ -27,6 +27,7 @@ app.get("/articles", function(req, res){
   })
   .catch(function(err){
     console.log(err)
+    res.send(err)
   })
 });
 
@@ -40,6 +41,15 @@ app.post("/articles", function(req, res){
   });
 
   newArticle.save();
+});
+
+app.delete("/articles", function(req, res){
+  Article.deleteMany({}).then(function(){
+    res.send("Successfully deleted all articles.")
+  })
+  .catch(function(err){
+    res.send(err)
+  })
 });
 
 app.listen(3000, function(){
