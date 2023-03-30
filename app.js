@@ -68,7 +68,22 @@ app.route("/articles/:articleTitle")
     console.log(err)
     res.send("No articles matching that title was found.")
   })
-});
+})
+
+.put(function(req, res){
+
+  Article.replaceOne(
+    {title: req.params.articleTitle}, 
+    {title: req.body.title, content: req.body.content},
+    {overwrite: true})
+  .then(function(){
+    res.send("Successfully updated article.");
+  })
+  .catch(function(err){
+    console.log(err)
+    res.send(err)
+  })
+})
 
 app.listen(3000, function(){
   console.log("Server started on port 3000");
